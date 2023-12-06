@@ -19,9 +19,17 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   tf
   gazebo_ros
+  message_generation
+  pcl_conversions
+  pcl_ros
 )
 
 find_package(gazebo REQUIRED)
+
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
 
 ################################################################################
 # Setup for python modules and scripts
@@ -30,6 +38,11 @@ find_package(gazebo REQUIRED)
 ################################################################################
 # Declare ROS messages, services and actions
 ################################################################################
+add_message_files(
+  FILES
+  Obstacle.msg
+)
+generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
 ################################################################################
 # Declare ROS dynamic reconfigure parameters
@@ -40,7 +53,7 @@ find_package(gazebo REQUIRED)
 ################################################################################
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp std_msgs sensor_msgs geometry_msgs nav_msgs tf gazebo_ros
+  CATKIN_DEPENDS roscpp std_msgs sensor_msgs geometry_msgs nav_msgs tf gazebo_ros 
   DEPENDS GAZEBO
 )
 
@@ -59,10 +72,18 @@ add_executable(turtlebot3_drive src/turtlebot3_drive.cpp)
 add_dependencies(turtlebot3_drive ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(turtlebot3_drive ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
+add_executable(cluster_obstacles src/cluster_obstacles.cpp)
+add_dependencies(cluster_obstacles ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(cluster_obstacles ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${PCL_LIBRARIES})
+
+add_executable(cluster_2d_pcl src/cluster_2d_pcl.cpp)
+add_dependencies(cluster_2d_pcl ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(cluster_2d_pcl ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${PCL_LIBRARIES})
+
 ################################################################################
 # Install
 ################################################################################
-install(TARGETS turtlebot3_drive
+install(TARGETS turtlebot3_drive cluster_obstacles cluster_2d_pcl
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

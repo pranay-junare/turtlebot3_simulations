@@ -1,46 +1,40 @@
-# TurtleBot3
-<img src="https://github.com/ROBOTIS-GIT/emanual/blob/master/assets/images/platform/turtlebot3/logo_turtlebot3.png" width="300">
+# Obstacle_clustering_algorithm
 
-[![kinetic-devel Status](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/workflows/kinetic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/kinetic-devel)
-[![melodic-devel Status](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/workflows/melodic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/melodic-devel)
-[![noetic-devel Status](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/workflows/noetic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/noetic-devel)
+[comment]: <>  (## _The Last Markdown Editor, Ever_)
 
-[![dashing-devel Status](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/workflows/dashing-devel/badge.svg)](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/dashing-devel)
-[![foxy-devel Status](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/workflows/foxy-devel/badge.svg)](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/foxy-devel)
-[![galactic-devel Status](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/workflows/galactic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/galactic-devel)
+[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
-## ROBOTIS e-Manual for TurtleBot3
-- [ROBOTIS e-Manual for TurtleBot3](http://turtlebot3.robotis.com/)
+
+### Aim : To detect obstacles present in the perception horizon of mobile robot using only 2D Lidar data in an unknown unseen environment.
+- find the number of obstacles  present at any given time t.
+- also find the approximate size of each obstacle.
+- Note: No prior information about the environment is known. (No SLAM Map creation)
+### Running simulation:
+Pre-requisite: Standard Turtlebot3 packages, built from source. (Refer Turtlebot3's official site for more info!) 
+1. Spawn up the custom robot world environment
+    ```
+    $ roslaunch turtlebot3_gazebo turtlebot3_world_pranay.launch  
+    ```
+2. Run the ROS node which clusters pointcloud data of the 2-D Lidar and finds the total number of obstacles along with its approximate size:
+    ```
+    $ roslaunch turtlebot3_gazebo turtlebot3_cluster_2d_pcl.launch 
+    ```
+3. For visualizing data:
+    ```
+    $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch   
+    ```
+4. To View Output Result:\
+    For example: In below gazebo environment, robot correctly finds the object count of 3 and publishes its information in /obstacle_info topic. 
+    ```
+    $ rostopic echo /obstacle_info  
+    ```
+
+![Alt text](turtlebot3_gazebo/img/obstacle_detection_1.png)
+
+![Alt text](turtlebot3_gazebo/img/obstacle_detection_2.png)
 
 ## Wiki for turtlebot3_simulations Packages
 - http://wiki.ros.org/turtlebot3_simulations (metapackage)
 - http://wiki.ros.org/turtlebot3_fake
 - http://wiki.ros.org/turtlebot3_gazebo
 
-## Open Source related to TurtleBot3
-- [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3)
-- [turtlebot3_msgs](https://github.com/ROBOTIS-GIT/turtlebot3_msgs)
-- [turtlebot3_simulations](https://github.com/ROBOTIS-GIT/turtlebot3_simulations)
-- [turtlebot3_applications_msgs](https://github.com/ROBOTIS-GIT/turtlebot3_applications_msgs)
-- [turtlebot3_applications](https://github.com/ROBOTIS-GIT/turtlebot3_applications)
-- [turtlebot3_autorace](https://github.com/ROBOTIS-GIT/turtlebot3_autorace)
-- [turtlebot3_deliver](https://github.com/ROBOTIS-GIT/turtlebot3_deliver)
-- [hls_lfcd_lds_driver](https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver)
-- [turtlebot3_manipulation](https://github.com/ROBOTIS-GIT/turtlebot3_manipulation.git)
-- [turtlebot3_manipulation_simulations](https://github.com/ROBOTIS-GIT/turtlebot3_manipulation_simulations.git)
-- [robotis_manipulator](https://github.com/ROBOTIS-GIT/robotis_manipulator)
-- [open_manipulator_msgs](https://github.com/ROBOTIS-GIT/open_manipulator_msgs)
-- [open_manipulator](https://github.com/ROBOTIS-GIT/open_manipulator)
-- [open_manipulator_simulations](https://github.com/ROBOTIS-GIT/open_manipulator_simulations)
-- [open_manipulator_perceptions](https://github.com/ROBOTIS-GIT/open_manipulator_perceptions)
-- [dynamixel_sdk](https://github.com/ROBOTIS-GIT/DynamixelSDK)
-- [OpenCR-Hardware](https://github.com/ROBOTIS-GIT/OpenCR-Hardware)
-- [OpenCR](https://github.com/ROBOTIS-GIT/OpenCR)
-
-## Documents and Videos related to TurtleBot3
-- [ROBOTIS e-Manual for TurtleBot3](http://turtlebot3.robotis.com/)
-- [ROBOTIS e-Manual for OpenManipulator](http://emanual.robotis.com/docs/en/platform/openmanipulator/)
-- [ROBOTIS e-Manual for Dynamixel SDK](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/)
-- [Website for TurtleBot Series](http://www.turtlebot.com/)
-- [e-Book for TurtleBot3](https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51/)
-- [Videos for TurtleBot3 ](https://www.youtube.com/playlist?list=PLRG6WP3c31_XI3wlvHlx2Mp8BYqgqDURU)

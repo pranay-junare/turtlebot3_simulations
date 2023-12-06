@@ -22,8 +22,15 @@
   <depend>nav_msgs</depend>
   <depend>tf</depend>
   <depend>gazebo_ros</depend>
+
+  <build_depend>libpcl-all-dev</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <exec_depend>libpcl-all</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
   <exec_depend>gazebo</exec_depend>
   <exec_depend>turtlebot3_description</exec_depend>
+  
   <export>
     <gazebo_ros gazebo_media_path="${prefix}"/>
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
