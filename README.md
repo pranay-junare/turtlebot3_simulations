@@ -1,4 +1,4 @@
-# Obstacle_clustering_algorithm
+# Obstacle-Detection_clustering_algorithm
 
 [comment]: <>  (## _The Last Markdown Editor, Ever_)
 
